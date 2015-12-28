@@ -28,3 +28,25 @@ DEP_PLUGINS = elvis_mk
 
 Run `make help` in order to check what targets are available for
 `elvis.mk`.
+
+## Example
+
+For example you can run `make elvis`:
+
+```make
+Loading files...
+Loading src/your_module.erl
+Applying rules...
+# src/your_module.erl [FAIL]
+  - operator_spaces
+    - Missing space after "," on line 27
+Loading files...
+Loading Makefile
+Applying rules...
+# Makefile [OK]
+Loading files...
+Loading elvis.config
+Applying rules...
+# elvis.config [OK]
+make: *** [elvis] Error 1
+```
