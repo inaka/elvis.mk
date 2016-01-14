@@ -19,7 +19,7 @@ following in your Makefile:
 ```make
 BUILD_DEPS = elvis_mk
 
-dep_elvis_mk = git git@github.com:inaka/elvis.mk.git c3bb3f5
+dep_elvis_mk = git https://github.com/inaka/elvis.mk.git c3bb3f5
 
 DEP_PLUGINS = elvis_mk
 ```
