@@ -4,14 +4,14 @@
 .PHONY: elvis distclean-elvis
 
 # Configuration.
-
+ELVIS_VERSION=0.2.6
 ELVIS_CONFIG ?= $(CURDIR)/elvis.config
 
 ELVIS ?= $(CURDIR)/elvis
 export ELVIS
 
-ELVIS_URL ?= https://github.com/inaka/elvis/releases/download/0.2.5/elvis
-ELVIS_CONFIG_URL ?= https://github.com/inaka/elvis/releases/download/0.2.5/elvis.config
+ELVIS_URL ?= https://github.com/inaka/elvis/releases/download/$(ELVIS_VERSION)/elvis
+ELVIS_CONFIG_URL ?= https://github.com/inaka/elvis/releases/download/$(ELVIS_VERSION)/elvis.config
 ELVIS_OPTS ?=
 
 # Core targets.
