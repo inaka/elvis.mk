@@ -16,7 +16,13 @@ following in your Makefile:
 ```make
 BUILD_DEPS = elvis_mk
 
-dep_elvis_mk = git https://github.com/inaka/elvis.mk.git 1.0.0
+# defaults to 1.1.0
+# the version must be a tag in the repo
+# that Elvis version must compile with the installed Erlang / OTP
+# don't forget to do `make distclean` after changing the version
+# ELVIS_VERSION = 1.0.1 # downgrade
+
+dep_elvis_mk = git https://github.com/inaka/elvis.mk.git 1.1.0
 
 DEP_PLUGINS = elvis_mk
 ```
