@@ -1,4 +1,9 @@
 # Change Log
+## [1.1.0](https://github.com/inaka/elvis.mk/tree/1.1.0) (2022-08-05)
+**Implemented enhancements:**
+
+- Make the Elvis version configurable [\#14](https://github.com/inaka/elvis.mk/issues/14)
+- download the source code and compile Elvis (as upstream no longer provides an executable)
 
 ## [1.0.0](https://github.com/inaka/elvis.mk/tree/1.0.0) (2016-04-12)
 **Implemented enhancements:**
