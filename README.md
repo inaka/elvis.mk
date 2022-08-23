@@ -16,16 +16,24 @@ following in your Makefile:
 ```make
 BUILD_DEPS = elvis_mk
 
-# defaults to 1.1.0
-# the version must be a tag in the repo
-# that Elvis version must compile with the installed Erlang / OTP
-# don't forget to do `make distclean-elvis` after changing the version
-# ELVIS_VERSION = 1.0.1 # downgrade
-
-dep_elvis_mk = git https://github.com/inaka/elvis.mk.git 1.1.0
+dep_elvis_mk = git https://github.com/inaka/elvis.mk.git 1.1.1
 
 DEP_PLUGINS = elvis_mk
 ```
+## Extra config
+
+- `ELVIS_VERSION` - the Elvis version to build and use
+  - defaults to `1.1.0`
+  - the version must be a tag in the [Elvis repo](https://github.com/inaka/elvis)
+  - that Elvis version must compile with the installed Erlang / OTP
+  - don't forget to do `make distclean-elvis` after changing the version
+- `ELVIS_REBAR3` - path to the Rebar3 executable to build Elvis with
+  - defaults to `rebar3`
+  - if this command is not found Rebar 3 will be downloaded from `ELVIS_REBAR3_URL`
+- `ELVIS_REBAR3_URL`
+  - defaults to `https://s3.amazonaws.com/rebar3/rebar3`
+
+For even more extras use the force, [read the source](plugins.mk).
 
 ## Help
 
