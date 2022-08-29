@@ -15,6 +15,9 @@ ELVIS_OPTS ?=
 ELVIS_BUILD_DIR ?= $(CURDIR)/_build
 ELVIS_CODE_ARCHIVE = $(ELVIS_VERSION).tar.gz
 
+ELVIS_REBAR3_URL ?= https://s3.amazonaws.com/rebar3/rebar3
+ELVIS_REBAR3 ?= rebar3
+
 # Core targets.
 
 help::
@@ -27,16 +30,28 @@ distclean:: distclean-elvis
 # Plugin-specific targets.
 
 $(ELVIS):
-	$(gen_verbose) mkdir -p $(ELVIS_BUILD_DIR)
-	$(gen_verbose) $(call core_http_get,$(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE),$(ELVIS_URL))
-	$(gen_verbose) cd $(ELVIS_BUILD_DIR) && \
+	$(verbose) mkdir -p $(ELVIS_BUILD_DIR)
+ifeq ($(shell command -v $(ELVIS_REBAR3)),)
+	$(verbose) echo "Downloading Rebar3 from: "$(ELVIS_REBAR3_URL)
+	$(verbose) $(call core_http_get,$(ELVIS_BUILD_DIR)/rebar3,$(ELVIS_REBAR3_URL))
+	$(verbose) chmod +x $(ELVIS_BUILD_DIR)/rebar3
+	$(eval ELVIS_REBAR3 := $(ELVIS_BUILD_DIR)/rebar3)
+else
+	$(verbose) echo "Using Rebar3: "$(ELVIS_REBAR3)
+endif
+	$(verbose) echo "Downloading Elvis from: "$(ELVIS_URL)
+	$(verbose) $(call core_http_get,$(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE),$(ELVIS_URL))
+	$(verbose) cd $(ELVIS_BUILD_DIR) && \
 		tar -xzf $(ELVIS_CODE_ARCHIVE) && \
 		cd elvis-$(ELVIS_VERSION) && \
-		rebar3 escriptize
+		$(ELVIS_REBAR3) escriptize
 	$(gen_verbose) cp $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/_build/default/bin/elvis $(ELVIS)
 	$(gen_verbose) cp --no-clobber $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/elvis.config $(ELVIS_CONFIG)
 	$(verbose) chmod +x $(ELVIS)
-	$(gen_verbose) rm -rf $(ELVIS_BUILD_DIR)
+	$(verbose) rm -rf $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)
+	$(verbose) rm $(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE)
+	$(verbose) rm --force $(ELVIS_BUILD_DIR)/rebar3
+	$(verbose) rmdir --ignore-fail-on-non-empty $(ELVIS_BUILD_DIR)
 
 elvis: $(ELVIS)
 	$(verbose) $(ELVIS) rock -c $(ELVIS_CONFIG) $(ELVIS_OPTS)
