@@ -60,7 +60,7 @@ cmp --silent test-elvis.config elvis.config || fail "elvis.config was overwritte
 [ -e _build ] || fail "build dir ('_build') removed"
 
 make elvis > out.log 2>&1 || fail "make failed, exit code $?"
-[ ! -s out.log ] || fail "output (out.log) not empty"
+[ ! -s out.log ] || (cat out.log && fail "output (out.log) not empty")
 finished_test
 
 cleanup

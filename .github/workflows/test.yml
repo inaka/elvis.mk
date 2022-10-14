@@ -1,0 +1,22 @@
+name: Test on a few operating systems
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test-on-ubuntu:
+    name: Test on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: test/run.sh
+
+  test-on-mac:
+    name: Test on MacOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: brew install erlang make
+      - run: PATH="$(brew --prefix)/opt/make/libexec/gnubin:$PATH" test/run.sh
