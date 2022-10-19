@@ -46,12 +46,13 @@ endif
 		cd elvis-$(ELVIS_VERSION) && \
 		$(ELVIS_REBAR3) escriptize
 	$(gen_verbose) cp $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/_build/default/bin/elvis $(ELVIS)
-	$(gen_verbose) cp --no-clobber $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/elvis.config $(ELVIS_CONFIG)
+	$(gen_verbose) [ -e $(ELVIS_CONFIG) ] || \
+		cp -n $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/elvis.config $(ELVIS_CONFIG)
 	$(verbose) chmod +x $(ELVIS)
 	$(verbose) rm -rf $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)
 	$(verbose) rm $(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE)
-	$(verbose) rm --force $(ELVIS_BUILD_DIR)/rebar3
-	$(verbose) rmdir --ignore-fail-on-non-empty $(ELVIS_BUILD_DIR)
+	$(verbose) rm -f $(ELVIS_BUILD_DIR)/rebar3
+	$(if $(shell ls -A $(ELVIS_BUILD_DIR)/),,$(verbose) rmdir $(ELVIS_BUILD_DIR))
 
 elvis: $(ELVIS)
 	$(verbose) $(ELVIS) rock -c $(ELVIS_CONFIG) $(ELVIS_OPTS)
