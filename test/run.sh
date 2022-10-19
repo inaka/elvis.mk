@@ -44,13 +44,19 @@ ELVIS_REBAR3=$(pwd)/rebar3 make elvis || fail "make failed, exit code $?"
 [ -x elvis ] || fail "Elvis executable not found"
 [ -f elvis.config ] || fail "elvis.config not found"
 [ -e _build ] && fail "build dir ('_build') not removed"
+
+cp test-elvis.config elvis.config
+make elvis > out.log 2>&1 || fail "Elvis rock failed, exit code $?"
+[ ! -s out.log ] || (echo "--- out.log ---" && \
+    cat out.log && \
+    echo "---" && \
+    fail "Elvis rock output (out.log) not empty")
 finished_test
 
 prepare_test "Remote rebar3, existing build dir, existing elvis.config"
-mkdir -p _build
+mkdir -p _build/existing
 export ELVIS_REBAR3=not-to-be-found
 rm rebar3
-echo "test" > _build/test.txt
 cp test-elvis.config elvis.config
 
 make elvis || fail "make failed, exit code $?"
@@ -59,8 +65,11 @@ make elvis || fail "make failed, exit code $?"
 cmp --silent test-elvis.config elvis.config || fail "elvis.config was overwritten"
 [ -e _build ] || fail "build dir ('_build') removed"
 
-make elvis > out.log 2>&1 || fail "make failed, exit code $?"
-[ ! -s out.log ] || (cat out.log && fail "output (out.log) not empty")
+make elvis > out.log 2>&1 || fail "Elvis rock failed, exit code $?"
+[ ! -s out.log ] || (echo "--- out.log ---" && \
+    cat out.log && \
+    echo "---" && \
+    fail "Elvis rock output (out.log) not empty")
 finished_test
 
 cleanup
