@@ -1,5 +1,5 @@
 # elvis.mk
-3rd party elrang.mk plug-in for Elvis
+3rd party erlang.mk plug-in for Elvis
 
 ## Contact Us
 If you find any **bugs** or have a **problem** while using this library, please
