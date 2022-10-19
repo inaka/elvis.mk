@@ -16,7 +16,7 @@ following in your Makefile:
 ```make
 BUILD_DEPS = elvis_mk
 
-dep_elvis_mk = git https://github.com/inaka/elvis.mk.git 1.1.1
+dep_elvis_mk = git https://github.com/inaka/elvis.mk.git 1.1.2
 
 DEP_PLUGINS = elvis_mk
 ```

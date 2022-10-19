@@ -1,4 +1,16 @@
 # Change Log
+
+## [1.1.2](https://github.com/inaka/elvis.mk/tree/1.1.2) (2022-10-13)
+**Implemented enhancements:**
+
+- fix: some compatibily issues with non-GNU environments [\#17](https://github.com/inaka/elvis.mk/issues/17)
+- perf: don't run `command -v rebar3` on each Elvis invocation
+
+## [1.1.1](https://github.com/inaka/elvis.mk/tree/1.1.1) (2022-08-23)
+**Implemented enhancements:**
+
+- download Rebar3 (if not found locally) and use it to build Elvis [\#16](https://github.com/inaka/elvis.mk/issues/16)
+
 ## [1.1.0](https://github.com/inaka/elvis.mk/tree/1.1.0) (2022-08-05)
 **Implemented enhancements:**
 
