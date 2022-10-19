@@ -27,24 +27,21 @@ help::
 
 distclean:: distclean-elvis
 
+MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+
 # Plugin-specific targets.
 
 $(ELVIS):
 	$(verbose) mkdir -p $(ELVIS_BUILD_DIR)
-ifeq ($(shell command -v $(ELVIS_REBAR3)),)
-	$(verbose) echo "Downloading Rebar3 from: "$(ELVIS_REBAR3_URL)
-	$(verbose) $(call core_http_get,$(ELVIS_BUILD_DIR)/rebar3,$(ELVIS_REBAR3_URL))
-	$(verbose) chmod +x $(ELVIS_BUILD_DIR)/rebar3
-	$(eval ELVIS_REBAR3 := $(ELVIS_BUILD_DIR)/rebar3)
-else
-	$(verbose) echo "Using Rebar3: "$(ELVIS_REBAR3)
-endif
 	$(verbose) echo "Downloading Elvis from: "$(ELVIS_URL)
 	$(verbose) $(call core_http_get,$(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE),$(ELVIS_URL))
 	$(verbose) cd $(ELVIS_BUILD_DIR) && \
 		tar -xzf $(ELVIS_CODE_ARCHIVE) && \
 		cd elvis-$(ELVIS_VERSION) && \
-		$(ELVIS_REBAR3) escriptize
+		export ELVIS_BUILD_DIR=$(ELVIS_BUILD_DIR) && \
+		export ELVIS_REBAR3_URL=$(ELVIS_REBAR3_URL) && \
+		export ELVIS_REBAR3=$(ELVIS_REBAR3) && \
+		$(MAKEFILE_DIR)/rebar3.sh escriptize
 	$(gen_verbose) cp $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/_build/default/bin/elvis $(ELVIS)
 	$(gen_verbose) [ -e $(ELVIS_CONFIG) ] || \
 		cp -n $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/elvis.config $(ELVIS_CONFIG)
@@ -52,7 +49,7 @@ endif
 	$(verbose) rm -rf $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)
 	$(verbose) rm $(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE)
 	$(verbose) rm -f $(ELVIS_BUILD_DIR)/rebar3
-	$(if $(shell ls -A $(ELVIS_BUILD_DIR)/),,$(verbose) rmdir $(ELVIS_BUILD_DIR))
+	$(verbose) find $(ELVIS_BUILD_DIR) -maxdepth 0 -empty -exec rmdir "{}" ";"
 
 elvis: $(ELVIS)
 	$(verbose) $(ELVIS) rock -c $(ELVIS_CONFIG) $(ELVIS_OPTS)
