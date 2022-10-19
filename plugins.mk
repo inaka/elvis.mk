@@ -52,7 +52,7 @@ endif
 	$(verbose) rm -rf $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)
 	$(verbose) rm $(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE)
 	$(verbose) rm -f $(ELVIS_BUILD_DIR)/rebar3
-	$(verbose) [ -z "$(ls -A $(ELVIS_BUILD_DIR))" ] || rmdir $(ELVIS_BUILD_DIR)
+	$(if $(shell ls -A $(ELVIS_BUILD_DIR)/),,$(verbose) rmdir $(ELVIS_BUILD_DIR))
 
 elvis: $(ELVIS)
 	$(verbose) $(ELVIS) rock -c $(ELVIS_CONFIG) $(ELVIS_OPTS)
