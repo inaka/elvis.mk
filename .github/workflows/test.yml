@@ -10,13 +10,18 @@ jobs:
     name: Test on Ubuntu
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: erlef/setup-beam@v1
+        id: setup-beam
+        with:
+          otp-version: '28'
+          rebar3-version: '3.25'
       - run: test/run.sh
 
   test-on-mac:
     name: Test on MacOS
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: brew install erlang make
       - run: PATH="$(brew --prefix)/opt/make/libexec/gnubin:$PATH" test/run.sh
