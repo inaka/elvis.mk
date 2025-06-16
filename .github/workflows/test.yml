@@ -8,7 +8,7 @@ on:
 jobs:
   test-on-ubuntu:
     name: Test on Ubuntu
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
       - run: test/run.sh
