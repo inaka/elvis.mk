@@ -4,7 +4,7 @@
 .PHONY: elvis distclean-elvis
 
 # Configuration.
-ELVIS_VERSION ?= 4.1.1
+ELVIS_VERSION ?= 4.2.0
 ELVIS_CONFIG ?= $(CURDIR)/elvis.config
 
 ELVIS ?= $(CURDIR)/elvis
@@ -44,7 +44,7 @@ $(ELVIS):
 		$(MAKEFILE_DIR)/rebar3.sh escriptize
 	$(gen_verbose) cp $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/_build/default/bin/elvis $(ELVIS)
 	$(gen_verbose) [ -e $(ELVIS_CONFIG) ] || \
-		cp -n $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/elvis.config $(ELVIS_CONFIG)
+		cp -n $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)/config/elvis.config $(ELVIS_CONFIG)
 	$(verbose) chmod +x $(ELVIS)
 	$(verbose) rm -rf $(ELVIS_BUILD_DIR)/elvis-$(ELVIS_VERSION)
 	$(verbose) rm $(ELVIS_BUILD_DIR)/$(ELVIS_CODE_ARCHIVE)

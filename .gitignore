@@ -9,3 +9,9 @@ rel/example_project
 .concrete/DEV_MODE
 .rebar
 test/test.d
+test/.erlang.mk
+test/elvis
+test/elvis.config
+test/erlang.mk
+test/out.log
+test/rebar3
