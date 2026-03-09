@@ -61,3 +61,9 @@ Applying rules...
 # elvis.config [OK]
 make: *** [elvis] Error 1
 ```
+
+## Versioning
+
+This `erlang.mk` plugin is part of the Elvis ecosystem. For details on versioning and guidance on
+migrating between major versions when breaking changes occur, refer to the
+[`elvis_core` `README`](https://github.com/inaka/elvis_core/blob/main/README.md#versioning).
