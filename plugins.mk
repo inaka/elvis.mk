@@ -4,7 +4,7 @@
 .PHONY: elvis distclean-elvis
 
 # Configuration.
-ELVIS_VERSION ?= 4.2.3
+ELVIS_VERSION ?= 5.0.1
 ELVIS_CONFIG ?= $(CURDIR)/elvis.config
 
 ELVIS ?= $(CURDIR)/elvis
@@ -23,7 +23,7 @@ ELVIS_REBAR3 ?= rebar3
 help::
 	$(verbose) printf "%s\n" "" \
 		"Elvis targets:" \
-		"  elvis       Run Elvis using the local elvis.config or download the default otherwise"
+		"  elvis       Run Elvis on your codebase."
 
 distclean:: distclean-elvis
 
