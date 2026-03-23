@@ -4,7 +4,7 @@
 .PHONY: elvis distclean-elvis
 
 # Configuration.
-ELVIS_VERSION ?= 5.0.1
+ELVIS_VERSION ?= 5.0.2
 ELVIS_CONFIG ?= $(CURDIR)/elvis.config
 
 ELVIS ?= $(CURDIR)/elvis
